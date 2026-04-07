@@ -12,10 +12,10 @@
 
 /* ─────────────────────────────────────────
    Mobile Reset
-   Hide on touch devices for performance
+   Canvas restored for 'Galactic Snowglobe' effect
    ───────────────────────────────────────── */
 @media (hover: none) and (pointer: coarse) {
     .canvas {
-        display: none;
+        display: block; 
     }
 }
