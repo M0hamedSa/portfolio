@@ -22,10 +22,10 @@ export default function Constellation() {
         const ctx = canvas.getContext('2d');
         if (!ctx) return;
 
-        // 1. Initial Seeding of 180 Stars (Increased Density)
-        const numPoints = 180;
+        // 1. Initial Seeding of 140 Stars (Optimized Density)
+        const numPoints = 140;
         const resize = () => {
-            const dpr = window.devicePixelRatio || 1;
+            const dpr = Math.min(window.devicePixelRatio || 1, 2); // Cap at 2 for performance
             canvas.width = window.innerWidth * dpr;
             canvas.height = window.innerHeight * dpr;
             ctx.scale(dpr, dpr);
@@ -36,8 +36,8 @@ export default function Constellation() {
             pointsRef.current = Array.from({ length: numPoints }, () => ({
                 x: Math.random() * window.innerWidth,
                 y: Math.random() * window.innerHeight,
-                vx: (Math.random() - 0.5) * 0.15, // Slightly slower drift for high density
-                vy: (Math.random() - 0.5) * 0.15,
+                vx: (Math.random() - 0.5) * 0.12, // Slower drift for smoothness
+                vy: (Math.random() - 0.5) * 0.12,
             }));
         };
 
@@ -45,9 +45,12 @@ export default function Constellation() {
         window.addEventListener('resize', resize);
 
         // 2. Mouse Tracking
-        const onMouseMove = (e: MouseEvent) => {
-            mouseRef.current = { x: e.clientX, y: e.clientY };
+        const updatePointer = (x: number, y: number) => {
+            mouseRef.current = { x, y };
         };
+
+        const onMouseMove = (e: MouseEvent) => updatePointer(e.clientX, e.clientY);
+
         window.addEventListener('mousemove', onMouseMove);
 
         // 3. Animation Loop

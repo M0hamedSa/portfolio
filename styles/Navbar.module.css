@@ -26,13 +26,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-    opacity: 0.9;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    opacity: 0.85;
+    filter: brightness(0.9);
 }
 
 .logoContainer:hover {
-    transform: scale(1.05);
+    transform: scale(1.08) rotate(-1deg);
     opacity: 1;
+    filter: brightness(1.2);
 }
 
 .logoImage {
