@@ -1,0 +1,21 @@
+.canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none; /* Crucial: Mouse goes through the canvas to the UI */
+    z-index: 4; /* Above background blur, below main UI elements */
+    background: transparent;
+    opacity: 0.6; /* Subtle atmospheric presence */
+}
+
+/* ─────────────────────────────────────────
+   Mobile Reset
+   Hide on touch devices for performance
+   ───────────────────────────────────────── */
+@media (hover: none) and (pointer: coarse) {
+    .canvas {
+        display: none;
+    }
+}

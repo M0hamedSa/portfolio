@@ -1,0 +1,154 @@
+.nebula {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(100px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.nebula1 {
+    width: 640px;
+    height: 640px;
+    background: radial-gradient(circle, rgba(80, 20, 180, 0.2) 0%, transparent 70%);
+    top: -160px;
+    left: -120px;
+}
+
+.nebula2 {
+    width: 520px;
+    height: 520px;
+    background: radial-gradient(circle, rgba(20, 60, 160, 0.15) 0%, transparent 70%);
+    bottom: -110px;
+    right: -60px;
+}
+
+.nebula3 {
+    width: 380px;
+    height: 380px;
+    background: radial-gradient(circle, rgba(0, 140, 120, 0.11) 0%, transparent 70%);
+    top: 42%;
+    left: 46%;
+}
+
+/* ── Hero Section ── */
+
+.hero {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 6vw 12rem;
+}
+
+.inner {
+    max-width: 920px;
+    width: 100%;
+}
+
+/* Tag */
+.tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #4a4a4a;
+    margin-bottom: 2rem;
+}
+
+.tagLine {
+    display: block;
+    width: 28px;
+    height: 1px;
+    background: #2a2a2a;
+}
+
+/* Headline */
+.headline {
+    font-family: var(--font-display);
+    font-size: clamp(60px, 10.5vw, 136px);
+    font-weight: 900;
+    line-height: 0.91;
+    letter-spacing: -0.035em;
+    color: #fff;
+    margin: 0 0 0;
+}
+
+.headlineOutline {
+    display: block;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+    font-style: italic;
+}
+
+/* Divider */
+.divider {
+    width: 1px;
+    height: 52px;
+    background: linear-gradient(to bottom, transparent, #2c2c2c, transparent);
+    margin: 2.8rem auto;
+}
+
+/* Sub */
+.sub {
+    font-size: clamp(15px, 1.5vw, 17px);
+    font-weight: 300;
+    color: #4a4a4a;
+    line-height: 1.75;
+    max-width: 460px;
+    margin: 0 auto 3rem;
+}
+
+.subHighlight {
+    color: #999;
+    font-weight: 400;
+}
+
+/* CTA row */
+.ctaRow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2.2rem;
+}
+
+.btnPrimary {
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 14px 42px;
+    background: #fff;
+    color: #000;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+    display: inline-block;
+}
+
+.btnPrimary:hover {
+    background: rgba(255, 255, 255, 0.88);
+    transform: translateY(-3px);
+    box-shadow: 0 20px 50px rgba(255, 255, 255, 0.07);
+}
+
+.btnGhost {
+    font-size: 0.75rem;
+    color: #3d3d3d;
+    text-decoration: none;
+    letter-spacing: 0.07em;
+    border-bottom: 1px solid #222;
+    padding-bottom: 2px;
+    transition: color 0.25s, border-color 0.25s;
+}
+
+.btnGhost:hover {
+    color: #888;
+    border-color: #555;
+}

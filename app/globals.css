@@ -1,26 +1,68 @@
-@import "tailwindcss";
+/* ─────────────────────────────────────────
+   globals.css
+   Import in app/layout.tsx
+───────────────────────────────────────── */
 
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,900;1,900&family=DM+Sans:wght@300;400;500&display=swap');
+
+/* ── CSS Custom Properties ── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'DM Sans', sans-serif;
+
+  --color-bg: #000;
+  --color-fg: #ffffff;
+  --color-muted: #4a4a4a;
+  --color-dim: #252525;
+  --color-border: #1c1c1c;
+
+  --spacing-nav: 6vw;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ── Reset ── */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  cursor: none !important;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  cursor: none !important;
+}
+
+/* ── Selection ── */
+::selection {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e1e1e;
+  border-radius: 2px;
 }

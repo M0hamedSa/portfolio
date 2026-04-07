@@ -1,0 +1,147 @@
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px; /* Optimized for mobile */
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(20px);
+    border-bottom: 0.5px solid rgba(255, 255, 255, 0.15); /* High-end ultra-thin border */
+    transition: all 0.3s ease;
+}
+
+.navInner {
+    width: 100%;
+    padding: 0 10vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* ── Branded Logo Image ── */
+.logoContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0.9;
+}
+
+.logoContainer:hover {
+    transform: scale(1.05);
+    opacity: 1;
+}
+
+.logoImage {
+    display: block;
+    object-fit: contain;
+}
+
+/* ── Page Links (Left) ── */
+.links {
+    display: flex;
+    gap: 3rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.link {
+    font-family: var(--font-outfit), sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500; /* Increased from 300 to 500 */
+    letter-spacing: 0.25em;
+    text-decoration: none;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    background: linear-gradient(180deg, #fff 0%, rgba(255, 255, 255, 0.4) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 0.7;
+    display: inline-block;
+}
+
+.link:hover {
+    opacity: 1;
+    transform: scale(1.1) translateY(-1px);
+}
+
+/* ── Social Icons (Right) ── */
+.socials {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+.socialLink {
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    display: block;
+    opacity: 0.6;
+}
+
+.socialLink svg {
+    display: block;
+    stroke: url(#whiteGradient); /* Use a common SVG gradient */
+}
+
+.socialLink:hover {
+    opacity: 1;
+    transform: scale(1.1) translateY(-2px);
+}
+
+/* ── Desktop Layout Transition ── */
+@media (min-width: 1024px) {
+    .nav {
+        width: 120px; /* Increased from 100px */
+        height: 100vh;
+        border-bottom: none;
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+        flex-direction: column;
+        padding: 4rem 1rem;
+    }
+
+    .navInner {
+        flex-direction: column;
+        height: 100%;
+        padding: 0;
+        justify-content: space-between;
+    }
+
+    .logoContainer {
+        margin-bottom: 2rem;
+    }
+
+    .links {
+        flex-direction: column;
+        gap: 3.5rem;
+        align-items: center;
+    }
+
+    .link {
+        font-size: 0.75rem;
+        letter-spacing: 0.25em;
+    }
+
+    .socials {
+        flex-direction: column;
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .links { 
+        gap: 1.2rem; 
+    }
+    .link {
+        font-size: 0.7rem;
+        letter-spacing: 0.15em;
+    }
+    .navInner { padding: 0 4vw; }
+    .socials { display: none; } /* Clean mobile view */
+}
