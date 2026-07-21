@@ -103,7 +103,7 @@ export default function Preloader() {
   const startRef = useRef(0);
   const textRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
-  const MIN_DURATION = 1500;
+  const MIN_DURATION = 3000;
   const MESSAGES = [
     'FRAGMENT FOUND',
     'AWAKENING THE CORE',
@@ -124,7 +124,7 @@ export default function Preloader() {
       } else {
         gsap.to(overlayRef.current, {
           opacity: 0,
-          duration: 1.2,
+          duration: 2.4,
           ease: 'power2.inOut',
           onStart: () => {
             if (overlayRef.current) overlayRef.current.style.pointerEvents = 'none';
@@ -166,15 +166,15 @@ export default function Preloader() {
     const el = textRef.current;
     if (!el) return;
 
-    const perItem = 0.25;
+    const perItem = 0.5;
     const tl = gsap.timeline({ paused: true });
     MESSAGES.forEach((msg, i) => {
       if (i > 0) {
-        tl.to(el, { opacity: 0, duration: 0.05, ease: 'power2.in' });
+        tl.to(el, { opacity: 0, duration: 0.1, ease: 'power2.in' });
       }
       tl.call(() => { el.textContent = msg; });
-      tl.to(el, { opacity: 1, duration: 0.08, ease: 'power2.out' });
-      tl.to(el, { duration: perItem - 0.13 });
+      tl.to(el, { opacity: 1, duration: 0.16, ease: 'power2.out' });
+      tl.to(el, { duration: perItem - 0.26 });
     });
     tl.play();
     return () => { tl.kill(); };

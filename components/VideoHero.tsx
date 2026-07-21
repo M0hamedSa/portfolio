@@ -111,43 +111,7 @@ export default function VideoHero() {
       video.addEventListener('loadedmetadata', initAudio, { once: true });
     }
 
-    ScrollTrigger.refresh();
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: 'top top',
-        end: '+=100%',
-        scrub: 1.5,
-        pin: true,
-        invalidateOnRefresh: true,
-      },
-    });
-
-    tl.fromTo(
-      wrap,
-      { scale: 1 },
-      { scale: 1.6, ease: 'power2.inOut' },
-      0,
-    )
-      .fromTo(
-        overlay,
-        { opacity: 0 },
-        { opacity: 1, ease: 'power2.inOut' },
-        0,
-      )
-      .to(
-        { v: 0.5 },
-        {
-          v: 0,
-          ease: 'power2.inOut',
-          onUpdate() {
-            const gain = gainRef.current;
-            if (gain && !mutedRef.current) gain.gain.value = this.targets()[0].v;
-          },
-        },
-        0,
-      );
 
     return () => {
       window.removeEventListener('mousemove', handleMouse);
