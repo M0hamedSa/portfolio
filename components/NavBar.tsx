@@ -1,80 +1,101 @@
 'use client';
 
-import Link from 'next/link';
-import Image from 'next/image';
-import { FileText } from 'lucide-react';
-import styles from '@/styles/Navbar.module.css';
+import { useEffect, useState, useRef } from 'react';
+import gsap from 'gsap';
 
-const NAV_LINKS = [
-    { label: 'ABOUT', href: '#about' },
-    { label: 'WORK', href: '#work' },
-    { label: 'CONTACT', href: '#contact' },
+const LINKS = [
+  { label: 'AWAKEN', href: '#awaken' },
+  { label: 'PROFILE', href: '#profile' },
+  { label: 'CREATIONS', href: '#creations' },
+  { label: 'SYSTEMS', href: '#systems' },
+  { label: 'CONTACT', href: '#contact' },
 ];
 
+const CHARS = '!@#$%^&*()_+-=[]{}|;:,.<>?/~`ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+
+function randomizeText(span: HTMLElement, original: string) {
+  const tl = gsap.timeline();
+  const totalFrames = 6;
+  const frameDuration = 0.06;
+
+  for (let i = 0; i < totalFrames; i++) {
+    tl.call(() => {
+      const revealCount = Math.floor((i / totalFrames) * original.length);
+      span.textContent = original
+        .split('')
+        .map((c, idx) =>
+          idx < revealCount
+            ? c
+            : CHARS[Math.floor(Math.random() * CHARS.length)]
+        )
+        .join('');
+    }, undefined, `+=${frameDuration}`);
+  }
+
+  tl.call(() => { span.textContent = original; });
+  return tl;
+}
+
 export default function Navbar() {
-    return (
-        <nav className={styles.nav}>
-            {/* ── Global SVGs/Gradients ── */}
-            <svg width="0" height="0" style={{ position: 'absolute' }}>
-                <defs>
-                    <linearGradient id="whiteGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" stopColor="white" />
-                        <stop offset="100%" stopColor="rgba(255, 255, 255, 0.4)" />
-                    </linearGradient>
-                </defs>
-            </svg>
+  const [scrolled, setScrolled] = useState(false);
+  const timelinRef = useRef<gsap.core.Timeline | null>(null);
 
-            <div className={styles.navInner}>
-                {/* ── Branded Logo Image ── */}
-                <Link href="/" className={styles.logoContainer} aria-label="Home">
-                    <Image 
-                        src="/images/logo.png" 
-                        alt="Logo" 
-                        width={64} 
-                        height={64} 
-                        className={styles.logoImage}
-                        priority
-                    />
-                </Link>
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
-                {/* ── Page Links (Middle/After Logo) ── */}
-                <ul className={styles.links}>
-                    {NAV_LINKS.map((link) => (
-                        <li key={link.label}>
-                            <Link href={link.href} className={styles.link}>
-                                {link.label}
-                            </Link>
-                        </li>
-                    ))}
-                </ul>
-
-                {/* ── Social Icons (Bottom/Right) ── */}
-                <ul className={styles.socials}>
-                    {/* LinkedIn */}
-                    <li>
-                        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className={styles.socialLink}>
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect width="4" height="12" x="2" y="9" /><circle cx="4" cy="4" r="2" />
-                            </svg>
-                        </a>
-                    </li>
-                    {/* GitHub */}
-                    <li>
-                        <a href="https://github.com" target="_blank" rel="noopener noreferrer" className={styles.socialLink}>
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" /><path d="M9 18c-4.51 2-5-2-7-2" />
-                            </svg>
-                        </a>
-                    </li>
-                    {/* Resume */}
-                    <li>
-                        <a href="#" className={styles.socialLink} aria-label="Resume">
-                            <FileText size={18} strokeWidth={1.5} />
-                        </a>
-                    </li>
-                </ul>
-
-            </div>
-        </nav>
-    );
+  return (
+    <div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 9998, display: 'flex', justifyContent: 'center', pointerEvents: scrolled ? 'none' : 'auto' }}>
+      <nav
+        style={{
+          width: '80%',
+          display: 'flex',
+          justifyContent: 'space-between',
+          padding: '30px 0',
+          transition: 'opacity 0.4s ease',
+          opacity: scrolled ? 0 : 1,
+        }}
+      >
+        <style>{`@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&display=swap');`}</style>
+        {LINKS.map((link) => {
+          const spanWidth = link.label.length * 19;
+          return (
+          <a
+            key={link.label}
+            href={link.href}
+            style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontSize: 16,
+              color: '#c9a96e',
+              textShadow: '0 0 20px rgba(201, 169, 110, 0.3), 0 0 40px rgba(201, 169, 110, 0.15)',
+              textDecoration: 'none',
+              letterSpacing: 3,
+              transition: 'all 0.3s ease',
+              display: 'inline-flex',
+              justifyContent: 'center',
+            }}
+            onMouseEnter={(e) => {
+              if (timelinRef.current) timelinRef.current.kill();
+              e.currentTarget.style.color = '#fff';
+              e.currentTarget.style.textShadow = '0 0 30px rgba(255,255,255,0.4), 0 0 60px rgba(255,255,255,0.2)';
+              const span = e.currentTarget.querySelector('.nav-text') as HTMLElement;
+              if (span) timelinRef.current = randomizeText(span, link.label);
+            }}
+            onMouseLeave={(e) => {
+              if (timelinRef.current) timelinRef.current.kill();
+              e.currentTarget.style.color = '#c9a96e';
+              e.currentTarget.style.textShadow = '0 0 20px rgba(201, 169, 110, 0.3), 0 0 40px rgba(201, 169, 110, 0.15)';
+              const span = e.currentTarget.querySelector('.nav-text') as HTMLElement;
+              if (span) span.textContent = link.label;
+            }}
+          >
+            <span className="nav-text" style={{ display: 'inline-block', width: spanWidth, textAlign: 'center' }}>{link.label}</span>
+          </a>
+          );
+        })}
+      </nav>
+    </div>
+  );
 }
