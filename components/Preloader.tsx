@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import gsap from 'gsap';
 
 function Model3D({ onReady }: { onReady: () => void }) {
@@ -97,6 +97,8 @@ export default function Preloader() {
   const [visible, setVisible] = useState(true);
   const [progress, setProgress] = useState(0);
   const [started, setStarted] = useState(false);
+  const [modelReady, setModelReady] = useState(false);
+  const [videoReady, setVideoReady] = useState(false);
   const frameRef = useRef(0);
   const startRef = useRef(0);
   const textRef = useRef<HTMLDivElement>(null);
@@ -110,7 +112,7 @@ export default function Preloader() {
     'THE JOURNEY BEGINS',
   ];
 
-  const onModelReady = () => {
+  const begin = useCallback(() => {
     setStarted(true);
     startRef.current = Date.now();
     frameRef.current = requestAnimationFrame(function tick() {
@@ -131,7 +133,29 @@ export default function Preloader() {
         });
       }
     });
-  };
+  }, []);
+
+  const onModelReady = useCallback(() => {
+    setModelReady(true);
+  }, []);
+
+  useEffect(() => {
+    if (modelReady && videoReady) begin();
+  }, [modelReady, videoReady, begin]);
+
+  useEffect(() => {
+    const video = document.createElement('video');
+    video.preload = 'auto';
+    video.src = '/videos/knight.mp4';
+    video.muted = true;
+    const onCanPlay = () => setVideoReady(true);
+    video.addEventListener('canplaythrough', onCanPlay, { once: true });
+    video.load();
+    return () => {
+      video.removeEventListener('canplaythrough', onCanPlay);
+      video.remove();
+    };
+  }, []);
 
   useEffect(() => {
     return () => cancelAnimationFrame(frameRef.current);
